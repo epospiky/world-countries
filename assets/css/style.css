@@ -1,0 +1,51 @@
+#map{
+    width: 22rem;
+    height: 20rem;
+}
+.switch{
+    background-color: transparent;
+    background-image: url("../img/sun.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.darkOn{
+    margin-left: 2rem!important;  
+    background-color: transparent;
+    background-image: url("../img/moon.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    transition-property: all;
+    transition-duration: 700ms;
+}
+
+body.darkMode{
+    background-color: #272525;
+    color: #e7e7e7;;
+}
+.darkMode .mode__box--container{
+    background-color: rgba(255,255,255, 0.4);
+}
+.darkMode nav, .darkMode .filter__button, .darkMode .filter__container, .darkMode .search__box input, .darkMode .country__box, .darkMode .country__back--btn, .darkMode .list3__group span, .darkMode .fa  {
+    background-color: #3e3d41;
+    color: #e7e7e7;
+}
+.darkMode .filter__container li{
+    border-left-color: #3e3d41;
+}
+.darkMode .filter__container li:hover{
+    border-left-color: rgba(255,255,255, 0.5);
+    background-color: rgba(255,255,255, 0.1);
+}
+.darkMode .country__box p, .darkMode .country__box h2{
+    color: #e7e7e7;
+}
+.darkMode .country__box p span{
+    color: #a8a8a8;
+}
+.darkMode .info__text, .darkMode .info__text li{
+    color: #e7e7e7;   
+}
+.darkMode .list1__group span, .darkMode .list2__group span{
+    color: #a8a8a8;
+}

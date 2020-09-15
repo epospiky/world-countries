@@ -1,0 +1,100 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>countries</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
+</head>
+<body class="bg-indigo-100">
+    <header class="header shadow-md">
+        <nav class="navbar flex justify-between items-center bg-white  py-3 px-8">
+            <li class="list-none logo__box">
+                <img class="object-contain ml-0 w-16 h-auto" src="assets/img/logo.png" alt="logo">
+            </li>
+            <div class="summary hidden md:block">
+                <p class="countries_summary text-sm">Countries : <span class="countries__summary--content"></span></p>
+                <p class="population__summary text-sm">World Population : <span class="population__summary--content"></span></p>
+            </div>
+            <li class="list-none mode__box ">
+                <div class="mode__box--container cursor-pointer bg-gray-200 relative w-16 h-8 rounded-full shadow-inner pt-1 px-1 transition duration-700 ease-in-out">
+                    <div class="switch absolute cursor-pointer w-6 h-6 rounded-full shadow-md transition-all duration-700 ease-in-out  "></div>
+                </div>
+            </li>
+        </nav>
+    </header>
+    <main class=" px-12 py-12 pt-4 lg:pt-12">
+       <div class="search__filter--box md:flex justify-between items-center">
+           <div class="search__box">
+               <label for="search" class="relative"> <input type="text" name="search" id="search" placeholder="Search for a country..." class="w-full md:w-auto pl-6 pr-32 py-1 rounded-md focus:border-none focus:outline-none focus:bg-gray-100 text-gray-700 "><span class="fa fa-search absolute -ml-8 mt-2" aria-hidden="true"></span></label>
+           </div>
+           <div class="filter__box relative mt-4 md:mt-0 ">
+               <button class="filter__button w-full  md:w-auto py-2 px-4 bg-white focus:outline-none rounded">Filter By Region <span class="fa fa-chevron-down transform duration-500"></span></button>
+               <ul class="filter__container absolute w-full bg-white z-10  hidden ">
+                <li id="all_regions" class="filter__item cursor-pointer font-medium px-2 py-1 transition-all duration-200 ease-in-out hover:bg-gray-200 border-white border-l-2  hover:border-black">All Regions</li>
+                   <li id="africa" class="filter__item cursor-pointer font-medium px-2 py-1 transition-all duration-200 ease-in-out hover:bg-gray-200 border-white border-l-2  hover:border-black">Africa</li>
+                   <li id="asia" class="filter__item  cursor-pointer font-medium px-2 py-1 transition-all duration-200 ease-in-out hover:bg-gray-200 border-white border-l-2  hover:border-black">Asia</li>
+                   <li id="americas" class="filter__item  cursor-pointer font-medium px-2 py-1 transition-all duration-200 ease-in-out hover:bg-gray-200 border-white border-l-2 hover:border-black">Americas</li>
+                   <li id="europe" class="filter__item  cursor-pointer font-medium px-2 py-1 transition-all duration-200 ease-in-out hover:bg-gray-200 border-white border-l-2 hover:border-black">Europe</li>
+                   <li id="oceania" class="filter__item  cursor-pointer font-medium px-2 py-1 transition-all duration-200 ease-in-out hover:bg-gray-200 border-white border-l-2 hover:border-black">Oceania</li>
+                   <li id="polar" class="filter__item  cursor-pointer font-medium px-2 py-1 transition-all duration-200 ease-in-out hover:bg-gray-200 border-white border-l-2 hover:border-black">Polar</li>
+               </ul>
+           </div> 
+       </div> 
+       <div class="countries__section mt-6 lg:mt-12">
+            <div class="countries__holder--box  md:grid md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+            </div>
+            <div class="country__info hidden">
+                <button class="country__back--btn bg-white font-semibold px-6 py-3 rounded-md shadow-md focus:outline-none transform duration-300 hover:-translate-y-1"><span class="fa fa-arrow-left"> Back</span></button>
+                <div class="country__info--box md:flex justify-between  items-center md:px-8 ">
+                    <div class="info__img--div  md:w-1/3 mb-6 mb-auto  ">
+                        <img src="" alt="" class="info__img object-fill "> 
+                    </div>
+
+                    <div class="info__text mb-6 mb:auto">
+                        <h1 class="info__header uppercase tracking-wide text-lg font-bold"></h1>
+                        <ul class="list1__group md:inline-block">
+                            <li class="list1__item text-md font-semibold text-gray-900 leading-8">Native Name: <span class="native_name--span  font-normal text-gray-700"></span></li>
+                            <li class="list1__item text-md font-semibold text-gray-900 leading-8">Population: <span class="population--span font-normal text-gray-700"></span></li>
+                            <li class="list1__item text-md font-semibold text-gray-900 leading-8" >Region: <span class="region--span font-normal text-gray-700"></span></li>
+                            <li class="list1__item text-md font-semibold text-gray-900 leading-8">Area: <span class="area--span font-normal text-gray-700"></span></li>
+                        </ul>
+                        <ul class="list2__group md:inline-block md:ml-8">
+                            <li class="list2__item text-md font-semibold text-gray-900 leading-8">Capital: <span class="capital--span font-normal text-gray-700"></span></li>
+                            <li class="list2__item text-md font-semibold text-gray-900 leading-8">Calling Code: <span class="calling_code--span font-normal text-gray-700"></span></li>
+                            <li class="list2__item text-md font-semibold text-gray-900 leading-8">Timezone: <span class="timezone--span font-normal text-gray-700"></span></li>
+                            <li class="list2__item text-md font-semibold text-gray-900 leading-8">Sub-Region: <span class="sub__region--span font-normal text-gray-700"></span></li>
+                        </ul>
+                        <ul class="list3__group mt-8">
+                            <li class="list3__item text-md font-semibold text-gray-900 py-2" >Borders: 
+                                <span class="borders  font-normal text-gray-700 "></span>
+                            </li>
+                            <li class="list3__item text-md font-semibold text-gray-900 py-2">Currency: 
+                                <span class="currency__code text-xs font-normal text-gray-700 bg-gray-100 rounded-md py-1 px-4 shadow"></span>
+                                <span class="currency__name text-xs font-normal text-gray-700 bg-gray-100 rounded-md py-1 px-4 shadow"></span>
+                                <span class="currency__symbol text-xs font-normal text-gray-700 bg-gray-100 rounded-md py-1 px-4 shadow"></span>
+                            </li>
+                            <li class="list1__item text-md font-semibold text-gray-900 py-2">
+                                Latitude: <span class="list1__item--lat text-xs font-normal text-gray-700 bg-gray-100 rounded-md py-1 px-4 shadow"></span> &emsp; 
+                                Longitude: <span class="list1__item--long text-xs font-normal text-gray-700 bg-gray-100 rounded-md py-1 px-4 shadow"></span></li>
+                        </ul>
+                    </div>
+                    <div id="map" class=" mb-6 mb:auto h-64 max-w-full"></div>
+                </div>
+
+            </div>
+       </div>
+    </main>
+    <!-- <script src="assets/js/restScript.js"></script> -->
+    <script src="assets/js/script.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPJpjD-qcR_yIxJnS8maR5W9KB0E3EzYI&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+</body>
+</html>
