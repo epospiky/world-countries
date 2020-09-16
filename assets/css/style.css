@@ -49,3 +49,15 @@ body.darkMode{
 .darkMode .list1__group span, .darkMode .list2__group span{
     color: #a8a8a8;
 }
+body{
+    font-family: 'ABeeZee', sans-serif;
+  }
+  .bck-btn{
+      font-family: 'Arya', Tahoma;
+  }
+  footer{
+    text-shadow: 4px 4px 4px #aaa;
+  }
+  footer a{
+    font-family:  'Amarante', serif;
+  }

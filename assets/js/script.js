@@ -4,19 +4,19 @@ const apiUrl = "https://restcountries.eu/rest/v2/all";
 const getData = async (apiUrl)=>{
 
     let url = `${apiUrl}`;
-    const res = await fetch(url);
+    const response = await fetch(url);
     
        try {
-        const data = await res.json();
+        const data = await response.json();
         //console.log(data);
         return data;
     } catch(error) {
-        console.log('error',error);
+        console.log('error:',error);
     }
 }
 
 
-//window.onload = () =>{
+window.onload = () =>{
     const body = document.querySelector('body');
     const search_filter = document.querySelector('.search__filter--box')
     const countryIfo = document.querySelector('.country__info');
@@ -31,7 +31,7 @@ const getData = async (apiUrl)=>{
         getData(apiUrl)
         .then(function(data) {
             for (i = 0; i < data.length; i++) {
-                function sumNum(data) {
+                function totCount(data) {
                     let sum = 0;
                     for (k = 0; k < data.length; k++) {
                        sum += data[k].population;
@@ -41,7 +41,7 @@ const getData = async (apiUrl)=>{
                 document.querySelector('.population__summary--content').textContent= sum.toLocaleString();
                     //console.log(sum); // show the final sum
                  }
-                 sumNum(data);
+                 totCount(data);
                  
     
              
@@ -70,23 +70,23 @@ const getData = async (apiUrl)=>{
             
             const population = document.createElement('p');
             population.classList.add('mt-4','font-semibold', 'text-gray-900', 'text-sm');
-            population.innerHTML = `Population: <span class = 'text-gray-600'>${data[i].population.toLocaleString()}</span>`;;
+            population.innerHTML = `Population: <span class = 'text-gray-600 font-normal'>${data[i].population.toLocaleString()}</span>`;;
             countryCard_info.appendChild(population)
 
             const capital = document.createElement('p');
             capital.classList.add('font-semibold', 'text-gray-700', 'text-sm');
-            capital.innerHTML = `Capital: <span class='text-gray-600'> ${data[i].capital}</span>`;
+            capital.innerHTML = `Capital: <span class='text-gray-600 font-normal'> ${data[i].capital}</span>`;
             countryCard_info.appendChild(capital);   
             
             const callingCode = document.createElement('p');
             callingCode.classList.add('font-semibold', 'text-gray-900', 'text-sm');
-            callingCode.innerHTML = `Calling Code: <span class='text-gray-600'> +${data[i].callingCodes}</span>`;
+            callingCode.innerHTML = `Calling Code: <span class='text-gray-600 font-normal'> +${data[i].callingCodes}</span>`;
             countryCard_info.appendChild(callingCode);
 
             const region = document.createElement('p');
             region.classList.add('font-semibold', 'text-gray-900', 'text-sm');
             const region_data = data[i].region.toLowerCase();
-            region.innerHTML = `Region: <span id ='${region_data}' class='text-gray-600'> ${region_data}</span>`;
+            region.innerHTML = `Region: <span id ='${region_data}' class='text-gray-600 font-normal'> ${region_data}</span>`;
 
             countryCard_info.appendChild(region);
         }    
@@ -226,4 +226,4 @@ const getData = async (apiUrl)=>{
 
 
     
-//}
+}
