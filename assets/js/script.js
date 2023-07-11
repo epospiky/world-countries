@@ -1,5 +1,5 @@
 //get the url of the api
-const apiUrl = "https://restcountries.eu/rest/v2/all";
+const apiUrl = "https://restcountries.com/v3.1/all";
 
 const getData = async (apiUrl)=>{
 
