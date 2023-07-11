@@ -54,7 +54,7 @@ window.onload = () =>{
             countriesDiv.appendChild(countryCard);
             const img = document.createElement('img');
             img.classList.add('rounded-t-md', 'h-40', 'w-full', 'object-cover')
-            img.src = data[i].flag;
+            img.src = data[i].flags[0];
             img.alt = 'flag';
             countryCard.appendChild(img);
 
@@ -75,7 +75,7 @@ window.onload = () =>{
 
             const capital = document.createElement('p');
             capital.classList.add('font-semibold', 'text-gray-700', 'text-sm');
-            capital.innerHTML = `Capital: <span class='text-gray-600 font-normal'> ${data[i].capital}</span>`;
+            capital.innerHTML = `Capital: <span class='text-gray-600 font-normal'> ${data[i].capital[0]}</span>`;
             countryCard_info.appendChild(capital);   
             
             const callingCode = document.createElement('p');
