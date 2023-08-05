@@ -54,7 +54,7 @@ window.onload = () =>{
             countriesDiv.appendChild(countryCard);
             const img = document.createElement('img');
             img.classList.add('rounded-t-md', 'h-40', 'w-full', 'object-cover')
-            img.src = data[i].flags[0];
+            img.src = data[i]["flags"]["png"];
             img.alt = 'flag';
             countryCard.appendChild(img);
 
@@ -64,7 +64,7 @@ window.onload = () =>{
             
             const name = document.createElement('h2');
             name.classList.add('font-bold', 'uppercase', 'text-gray-900', 'text-base', 'tracking-wide');
-            name.textContent = data[i].name;
+            name.textContent = data[i]["name"]["common"];
             countryCard_info.appendChild(name);
             //console.log(data[i].name);
             
@@ -75,12 +75,12 @@ window.onload = () =>{
 
             const capital = document.createElement('p');
             capital.classList.add('font-semibold', 'text-gray-700', 'text-sm');
-            capital.innerHTML = `Capital: <span class='text-gray-600 font-normal'> ${data[i].capital[0]}</span>`;
+            capital.innerHTML = `Capital: <span class='text-gray-600 font-normal'> ${data[i]["capital"][0]}</span>`;
             countryCard_info.appendChild(capital);   
             
             const callingCode = document.createElement('p');
             callingCode.classList.add('font-semibold', 'text-gray-900', 'text-sm');
-            callingCode.innerHTML = `Calling Code: <span class='text-gray-600 font-normal'> +${data[i].callingCodes}</span>`;
+            callingCode.innerHTML = `Calling Code: <span class='text-gray-600 font-normal'> ${data[i]["idd"]["root"]}${data[i]["idd"]["suffixes"][0]}</span>`;
             countryCard_info.appendChild(callingCode);
 
             const region = document.createElement('p');
@@ -126,9 +126,9 @@ window.onload = () =>{
                         info__header.textContent = detailsHeading.textContent;
 
                         for ( i = 0; i < data.length; i++) {
-                            if (e.target.parentElement.children[1].children[0].textContent.toLowerCase() == data[i].name.toLowerCase()) {
+                            if (e.target.parentElement.children[1].children[0].textContent.toLowerCase() == data[i]["name"]["common"].toLowerCase()) {
                                // console.log('perfect!')
-                                document.querySelector('.native_name--span').textContent = data[i].nativeName;
+                                document.querySelector('.native_name--span').textContent = data[i]["name"].nativeName["ara"]["official"];
                                 const pop_dat = data[i].population;
                                 const pop_data = pop_dat.toLocaleString();
                                 //console.log(pop_data)
@@ -138,7 +138,7 @@ window.onload = () =>{
                                 document.querySelector('.area--span').textContent = `${data[i].area.toLocaleString()} km²`;
 
                                 document.querySelector('.capital--span').textContent = data[i].capital;
-                                document.querySelector('.calling_code--span').textContent = `+${data[i].callingCodes}`;
+                                document.querySelector('.calling_code--span').textContent = `${data[i]["idd"]["root"]}${data[i]["idd"]["suffixes"][0]}`;
                                 document.querySelector('.timezone--span').textContent = data[i].timezones;
                                 document.querySelector('.sub__region--span').textContent = data[i].subregion;
 
@@ -155,17 +155,19 @@ window.onload = () =>{
 
                                 document.querySelector('.list1__item--lat').innerHTML = `${data[i].latlng[0]}<sup>o</sup> N`;
                                 document.querySelector('.list1__item--long').innerHTML = `${data[i].latlng[1]}<sup>o</sup> E`;
-                                function initMap(map) {
-                                    map = new google.maps.Map(document.getElementById("map"), {
-                                      center: {
-                                        lat: data[i].latlng[0],
-                                        lng: data[i].latlng[1]
-                                      },
-                                      zoom: 5
-                                    });
-                                  }
-                                initMap();
+                                
+                                let map;
 
+                                async function initMap() {
+                                  const { Map } = await google.maps.importLibrary("maps");
+                                
+                                  map = new Map(document.getElementById("map"), {
+                                    center: { lat: data[i].latlng[0], lng: data[i].latlng[1] },
+                                    zoom: 5,
+                                  });
+                                }
+                                
+                                initMap();
                             }
                             
                         }
