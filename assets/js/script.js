@@ -8,7 +8,7 @@ const getData = async (apiUrl)=>{
     
        try {
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
         return data;
     } catch(error) {
         console.log('error:',error);
@@ -42,7 +42,7 @@ window.onload = () =>{
                     //console.log(sum); // show the final sum
                  }
                  totCount(data);
-                 
+                 //console.log(data[i].capital[0]);
     
              
 
@@ -75,12 +75,20 @@ window.onload = () =>{
 
             const capital = document.createElement('p');
             capital.classList.add('font-semibold', 'text-gray-700', 'text-sm');
-            capital.innerHTML = `Capital: <span class='text-gray-600 font-normal'> ${data[i]["capital"][0]}</span>`;
+            if (data[i].capital != null) {
+                capital.innerHTML = `Capital: <span class='text-gray-600 font-normal'> ${data[i].capital[0]}</span>`;
+            } else {
+                capital.innerHTML = `Capital: <span class='text-gray-600 font-normal'> N/A</span>`;
+            }
             countryCard_info.appendChild(capital);   
             
             const callingCode = document.createElement('p');
             callingCode.classList.add('font-semibold', 'text-gray-900', 'text-sm');
-            callingCode.innerHTML = `Calling Code: <span class='text-gray-600 font-normal'> ${data[i]["idd"]["root"]}${data[i]["idd"]["suffixes"][0]}</span>`;
+            if (data[i]["idd"]["suffixes"] != null) {
+                callingCode.innerHTML = `Calling Code: <span class='text-gray-600 font-normal'> ${data[i]["idd"]["root"]}${data[i]["idd"]["suffixes"][0]}</span>`;
+            } else {
+                callingCode.innerHTML = `Calling Code: <span class='text-gray-600 font-normal'> N/A</span>`;
+            }
             countryCard_info.appendChild(callingCode);
 
             const region = document.createElement('p');
@@ -128,7 +136,20 @@ window.onload = () =>{
                         for ( i = 0; i < data.length; i++) {
                             if (e.target.parentElement.children[1].children[0].textContent.toLowerCase() == data[i]["name"]["common"].toLowerCase()) {
                                // console.log('perfect!')
-                                document.querySelector('.native_name--span').textContent = data[i]["name"].nativeName["ara"]["official"];
+                               if (data[i].name.nativeName) {
+                                let officialNativeName = "N/A";
+                                for(const langCode in  data[i].name.nativeName){
+                                    if (data[i].name.nativeName.hasOwnProperty(langCode) && data[i].name.nativeName[langCode].official) {
+                                        officialNativeName  = data[i].name.nativeName[langCode].official;   
+                                        break;
+                                    }
+                                } 
+                                document.querySelector('.native_name--span').textContent = officialNativeName;
+                                }
+                                else{
+                                    document.querySelector('.native_name--span').textContent = "No Native Name Detected";
+                                }
+                               
                                 const pop_dat = data[i].population;
                                 const pop_data = pop_dat.toLocaleString();
                                 //console.log(pop_data)
@@ -147,27 +168,52 @@ window.onload = () =>{
                                 //space.innerHTML=" ";
                                 const bord_split = border_data.replace(/,/g, space);
                                 //bord_split.replace(/,\s*$/, "");
-                                 
-                                document.querySelector('.borders').textContent = bord_split;
-                                document.querySelector('.currency__code').textContent = data[i].currencies[0].code;
-                                document.querySelector('.currency__name').textContent = data[i].currencies[0].name;
-                                document.querySelector('.currency__symbol').textContent = data[i].currencies[0].symbol;
+                                if (data[i].currencies) {
+                                    let curName = "N/A";
+                                    for(const cur in  data[i].currencies){
+                                        if (data[i].currencies.hasOwnProperty(cur) && data[i].currencies[cur].name && data[i].currencies[cur].symbol) {
+                                            curName  = data[i].currencies[cur].name;  
+                                            curSym =  data[i].currencies[cur].symbol
+                                            break;
+                                        }
+                                    } 
+                                    document.querySelector('.borders').textContent = bord_split;
+                                    document.querySelector('.currency__name').textContent = curName;
+                                    document.querySelector('.currency__symbol').textContent = curSym;
+                                 } 
 
-                                document.querySelector('.list1__item--lat').innerHTML = `${data[i].latlng[0]}<sup>o</sup> N`;
-                                document.querySelector('.list1__item--long').innerHTML = `${data[i].latlng[1]}<sup>o</sup> E`;
-                                
-                                let map;
-
-                                async function initMap() {
-                                  const { Map } = await google.maps.importLibrary("maps");
-                                
-                                  map = new Map(document.getElementById("map"), {
-                                    center: { lat: data[i].latlng[0], lng: data[i].latlng[1] },
-                                    zoom: 5,
-                                  });
-                                }
-                                
-                                initMap();
+                                 if (data[i].latlng != null) {
+                                    document.querySelector('.list1__item--lat').innerHTML = `${data[i].latlng[0]}<sup>o</sup> N`;
+                                    document.querySelector('.list1__item--long').innerHTML = `${data[i].latlng[1]}<sup>o</sup> E`;
+                                    
+/*                                     let map;
+    
+                                    async function initMap() {
+                                      const { Map } = await google.maps.importLibrary("maps");
+                                    
+                                      if (data[i].latlng != null) {
+                                            map = new Map(document.getElementById("map"), {
+                                                center: { lat: data[i].latlng[0], lng: data[i].latlng[1] },
+                                                zoom: 5,
+                                            });
+                                      }  */
+                                      
+                                      function initMap(map) {
+                                        map = new google.maps.Map(document.getElementById("map"), {
+                                          center: {
+                                            lat: data[i].latlng[0],
+                                            lng: data[i].latlng[1]
+                                          },
+                                          zoom: 5
+                                        });
+                                      }
+                                    
+                                    
+                                    initMap();
+                                 } else {
+                                    document.querySelector('.list1__item--lat').innerHTML = `N/A <sup>o</sup> N`;
+                                    document.querySelector('.list1__item--long').innerHTML = `N/A <sup>o</sup> E`;                                    
+                                 }
                             }
                             
                         }
@@ -196,9 +242,9 @@ window.onload = () =>{
 
     document.querySelector('.filter__container').addEventListener("click", function(e) {
         const clicked_region = e.target.textContent.toLowerCase();
-        //console.log(clicked_region);
+        console.log("clicked_region");
         document.querySelectorAll(".country__box").forEach((country) => { 
-        let  country_id = country.children[1].children[4].children[0].id;   
+        let  country_id = country.children[1].children[4].children[0].id.toLowerCase();   
         clicked_region === country_id ? country.classList.remove('hidden') 
         : country.classList.add('hidden'); 
         if (clicked_region === 'all regions') {
